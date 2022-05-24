@@ -14,8 +14,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.calculator.ui.theme.LightGray
-import com.example.calculator.ui.theme.MediumGray
 import com.example.calculator.ui.theme.Orange
+import com.example.calculator.ui.theme.MediumGray as MediumGray
 
 @Composable
 fun Calculator(
@@ -54,28 +54,28 @@ fun Calculator(
             ) {
                 CalculatorButton(
                     symbol = "AC",
-                    color = LightGray,
                     modifier = Modifier
                         .aspectRatio(2f)
                         .weight(2f)
+                        .background(LightGray)
                 ) {
                     onAction(CalculatorAction.Clear)
                 }
                 CalculatorButton(
                     symbol = "Del",
-                    color = LightGray,
                     modifier = Modifier
                         .aspectRatio(1f)
                         .weight(1f)
+                        .background(LightGray)
                 ) {
                     onAction(CalculatorAction.Delete)
                 }
                 CalculatorButton(
                     symbol = "/",
-                    color = Orange,
                     modifier = Modifier
                         .aspectRatio(1f)
                         .weight(1f)
+                        .background(Orange)
                 ) {
                     onAction(CalculatorAction.Operation(CalculatorOperation.Divide))
                 }
@@ -87,37 +87,37 @@ fun Calculator(
             ) {
                 CalculatorButton(
                     symbol = "7",
-                    color = MediumGray,
                     modifier = Modifier
                         .aspectRatio(1f)
                         .weight(1f)
+                        .background(MediumGray)
                 ) {
                     onAction(CalculatorAction.Number(7))
                 }
                 CalculatorButton(
                     symbol = "8",
-                    color = MediumGray,
                     modifier = Modifier
                         .aspectRatio(1f)
                         .weight(1f)
+                        .background(MediumGray)
                 ) {
                     onAction(CalculatorAction.Number(8))
                 }
                 CalculatorButton(
                     symbol = "9",
-                    color = MediumGray,
                     modifier = Modifier
                         .aspectRatio(1f)
                         .weight(1f)
+                        .background(MediumGray)
                 ) {
                     onAction(CalculatorAction.Number(9))
                 }
                 CalculatorButton(
                     symbol = "x",
-                    color = Orange,
                     modifier = Modifier
                         .aspectRatio(1f)
                         .weight(1f)
+                        .background(Orange)
                 ) {
                     onAction(CalculatorAction.Operation(CalculatorOperation.Multiply))
                 }
@@ -129,37 +129,37 @@ fun Calculator(
             ) {
                 CalculatorButton(
                     symbol = "4",
-                    color = MediumGray,
                     modifier = Modifier
                         .aspectRatio(1f)
                         .weight(1f)
+                        .background(MediumGray)
                 ) {
                     onAction(CalculatorAction.Number(4))
                 }
                 CalculatorButton(
                     symbol = "5",
-                    color = MediumGray,
                     modifier = Modifier
                         .aspectRatio(1f)
                         .weight(1f)
+                        .background(MediumGray)
                 ) {
                     onAction(CalculatorAction.Number(5))
                 }
                 CalculatorButton(
                     symbol = "6",
-                    color = MediumGray,
                     modifier = Modifier
                         .aspectRatio(1f)
                         .weight(1f)
+                        .background(MediumGray)
                 ) {
                     onAction(CalculatorAction.Number(6))
                 }
                 CalculatorButton(
                     symbol = "-",
-                    color = Orange,
                     modifier = Modifier
                         .aspectRatio(1f)
                         .weight(1f)
+                        .background(Orange)
                 ) {
                     onAction(CalculatorAction.Operation(CalculatorOperation.Subtract))
                 }
@@ -171,37 +171,37 @@ fun Calculator(
             ) {
                 CalculatorButton(
                     symbol = "1",
-                    color = MediumGray,
                     modifier = Modifier
                         .aspectRatio(1f)
                         .weight(1f)
+                        .background(MediumGray)
                 ) {
                     onAction(CalculatorAction.Number(1))
                 }
                 CalculatorButton(
                     symbol = "2",
-                    color = MediumGray,
                     modifier = Modifier
                         .aspectRatio(1f)
                         .weight(1f)
+                        .background(MediumGray)
                 ) {
                     onAction(CalculatorAction.Number(2))
                 }
                 CalculatorButton(
                     symbol = "3",
-                    color = MediumGray,
                     modifier = Modifier
                         .aspectRatio(1f)
                         .weight(1f)
+                        .background(MediumGray)
                 ) {
                     onAction(CalculatorAction.Number(3))
                 }
                 CalculatorButton(
                     symbol = "+",
-                    color = Orange,
                     modifier = Modifier
                         .aspectRatio(1f)
                         .weight(1f)
+                        .background(Orange)
                 ) {
                     onAction(CalculatorAction.Operation(CalculatorOperation.Add))
                 }
@@ -213,28 +213,28 @@ fun Calculator(
             ) {
                 CalculatorButton(
                     symbol = "0",
-                    color = MediumGray,
                     modifier = Modifier
                         .aspectRatio(2f)
                         .weight(2f)
+                        .background(MediumGray)
                 ) {
                     onAction(CalculatorAction.Number(0))
                 }
                 CalculatorButton(
                     symbol = ".",
-                    color = MediumGray,
                     modifier = Modifier
                         .aspectRatio(1f)
                         .weight(1f)
+                        .background(MediumGray)
                 ) {
                     onAction(CalculatorAction.Decimal)
                 }
                 CalculatorButton(
                     symbol = "=",
-                    color = Orange,
                     modifier = Modifier
                         .aspectRatio(1f)
                         .weight(1f)
+                        .background(Orange)
                 ) {
                     onAction(CalculatorAction.Result)
                 }

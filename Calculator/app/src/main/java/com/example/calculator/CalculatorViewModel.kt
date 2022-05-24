@@ -72,10 +72,10 @@ class CalculatorViewModel: ViewModel() {
             state = state.copy(number1 = state.number1 + number)
             return
         }
-            if (state.number2.length > MAX_NUM_LENGTH) {
+            if (state.number2.length >= MAX_NUM_LENGTH) {
                 return
             }
-            state = state.copy(number1 = state.number1 + number)
+            state = state.copy(number2 = state.number2 + number)
             return
 
     }
