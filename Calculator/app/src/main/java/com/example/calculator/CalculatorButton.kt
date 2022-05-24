@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun CalculatorButton(
     symbol: String,
+    color: Color,
     modifier: Modifier,
     onClick: ( ) -> Unit
 ) {
