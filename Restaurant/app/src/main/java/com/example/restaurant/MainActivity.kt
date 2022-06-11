@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.restaurant.ui.theme.RestaurantScreen
 import com.example.restaurant.ui.theme.RestaurantTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,11 +23,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             RestaurantTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background) {
-                    Greeting("Android")
-                }
+                RestaurantScreen()
             }
         }
     }
