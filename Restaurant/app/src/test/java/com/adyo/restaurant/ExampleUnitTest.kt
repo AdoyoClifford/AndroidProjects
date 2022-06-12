@@ -1,4 +1,4 @@
-package com.example.restaurant
+package com.adyo.restaurant
 
 import org.junit.Test
 

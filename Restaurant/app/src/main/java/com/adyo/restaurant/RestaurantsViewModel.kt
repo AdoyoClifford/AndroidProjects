@@ -1,21 +1,17 @@
-package com.example.restaurant
+package com.adyo.restaurant
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.Exception
 
 class RestaurantsViewModel(private val stateHandle: SavedStateHandle): ViewModel(){
     val state = mutableStateOf(emptyList<Restaurant>())
     private val restInterface: RestaurantApiService
-    private val erroHandler = CoroutineExceptionHandler{_,exception ->
+    private val errorHandler = CoroutineExceptionHandler{ _, exception ->
         exception.printStackTrace()
     }
 
@@ -28,7 +24,7 @@ class RestaurantsViewModel(private val stateHandle: SavedStateHandle): ViewModel
         getRestaurants()
     }
    private fun getRestaurants(){
-       viewModelScope.launch (erroHandler){
+       viewModelScope.launch (errorHandler){
                val restaurants = getRemoteRestaurants()
                    state.value = restaurants.restoreSelection()
        }

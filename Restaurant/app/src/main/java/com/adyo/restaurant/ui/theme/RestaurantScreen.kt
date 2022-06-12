@@ -1,4 +1,4 @@
-package com.example.restaurant.ui.theme
+package com.adyo.restaurant.ui.theme
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -22,8 +22,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.restaurant.Restaurant
-import com.example.restaurant.RestaurantsViewModel
+import com.adyo.restaurant.Restaurant
+import com.adyo.restaurant.RestaurantsViewModel
 
 @Composable
 fun RestaurantScreen() {
@@ -66,7 +66,7 @@ fun RestaurantItem(item: Restaurant, onClick: (id: Int) -> Unit) {
 }
 
 @Composable
-private fun RestaurantIcon(icon: ImageVector, modifier: Modifier,onClick: () -> Unit = {}) {
+ fun RestaurantIcon(icon: ImageVector, modifier: Modifier,onClick: () -> Unit = {}) {
     Image(
         imageVector = icon,
         contentDescription = "Restaurant icon",
@@ -80,8 +80,12 @@ fun RestaurantDetails(
     title: String,
     description: String,
     modifier: Modifier,
+    horizontalAlignment: Alignment.Horizontal = Alignment.Start
 ) {
-    Column(modifier = modifier) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = horizontalAlignment
+    ) {
         Text(
             text = title,
             style = MaterialTheme.typography.h6

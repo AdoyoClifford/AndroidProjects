@@ -1,4 +1,4 @@
-package com.example.restaurant
+package com.adyo.restaurant
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -15,47 +15,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.restaurant.ui.theme.RestaurantScreen
-import com.example.restaurant.ui.theme.RestaurantTheme
+import com.adyo.restaurant.ui.theme.RestaurantScreen
+import com.adyo.restaurant.ui.theme.RestaurantTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             RestaurantTheme {
-                RestaurantScreen()
+                //RestaurantScreen()
+                RestaurantDetailsScreen()
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-@Composable
-fun ColouredBox(){
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .background(Color.Green)
-        .padding(16.dp)
-        .background(Color.Red)){
-        Text("Hello")
-    }
-}
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview1() {
-    RestaurantTheme {
-        ColouredBox()
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    RestaurantTheme {
-        Greeting("Android")
-    }
-}
