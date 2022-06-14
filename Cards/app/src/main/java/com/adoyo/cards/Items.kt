@@ -1,25 +1,24 @@
 package com.adoyo.cards
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.annotation.DrawableRes
+import com.example.cards.R
 
-data class Items(var icon: ImageVector, var text: String)
+data class Items(@DrawableRes val image: Int, var text: String)
 
 
 
 fun createDataList(): List<Items>{
     val list = mutableListOf<Items>()
-    list.add(Items(icon = Icons.Default.Home, text = "Students"))
-    list.add(Items(icon = Icons.Default.Home, text = "Academic"))
-    list.add(Items(icon = Icons.Default.Home, text = "Attendance"))
-    list.add(Items(icon = Icons.Default.Home, text = "Leave"))
-    list.add(Items(icon = Icons.Default.Home, text = "Contents"))
-    list.add(Items(icon = Icons.Default.Home, text = "Notice"))
-    list.add(Items(icon = Icons.Default.Home, text = "Library"))
-    list.add(Items(icon = Icons.Default.Home, text = "Homework"))
-    list.add(Items(icon = Icons.Default.Home, text = "About"))
-    list.add(Items(icon = Icons.Default.Home, text = "Settings"))
+    list.add(Items(R.drawable.reading, text = "Students"))
+    list.add(Items(R.drawable.graduated, text = "Academic"))
+    list.add(Items(R.drawable.attendance, text = "Attendance"))
+    list.add(Items(R.drawable.slumber, text = "Leave"))
+    list.add(Items(R.drawable.content, text = "Contents"))
+    list.add(Items(R.drawable.message, text = "Notice"))
+    list.add(Items(R.drawable.book, text = "Library"))
+    list.add(Items(R.drawable.homework, text = "Homework"))
+    list.add(Items(R.drawable.info, text = "About"))
+    list.add(Items(R.drawable.button, text = "Settings"))
 
     return list
 }
