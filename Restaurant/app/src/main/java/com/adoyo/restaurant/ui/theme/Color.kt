@@ -1,4 +1,4 @@
-package com.adyo.restaurant.ui.theme
+package com.adoyo.restaurant.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,4 +1,4 @@
-package com.adyo.restaurant.ui.theme
+package com.adoyo.restaurant.ui.theme
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -21,8 +21,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.adyo.restaurant.Restaurant
-import com.adyo.restaurant.RestaurantsViewModel
+import com.adoyo.restaurant.Restaurant
+import com.adoyo.restaurant.RestaurantsViewModel
 
 @Composable
 fun RestaurantScreen(onItemClick: (id: Int) -> Unit) {

@@ -1,4 +1,4 @@
-package com.adyo.restaurant
+package com.adoyo.restaurant
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle

@@ -7,6 +7,7 @@
 
     <application
         android:allowBackup="true"
+        android:name="com.adoyo.restaurant.RestaurantsApplication"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -16,7 +17,7 @@
         android:theme="@style/Theme.Restaurant"
         tools:targetApi="31">
         <activity
-            android:name="com.adyo.restaurant.MainActivity"
+            android:name="com.adoyo.restaurant.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Restaurant">
