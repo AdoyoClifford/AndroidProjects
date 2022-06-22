@@ -1,9 +1,6 @@
 package com.adoyo.restaurant
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface RestaurantsDao {
@@ -11,4 +8,6 @@ interface RestaurantsDao {
     suspend fun getAll(): List<Restaurant>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addAll(restaurants: List<Restaurant>)
+    @Update(entity = Restaurant::class)
+    suspend fun update(partialUpdate: PartialUpdates)
 }

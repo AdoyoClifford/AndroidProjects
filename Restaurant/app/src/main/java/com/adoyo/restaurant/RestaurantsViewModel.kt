@@ -72,9 +72,10 @@ class RestaurantsViewModel(private val stateHandle: SavedStateHandle): ViewModel
     private fun List<Restaurant>.restoreSelection(): List<Restaurant> {
             stateHandle.get<List<Int>?>(FAVORITES)?.let {
                     selectedIds ->
-                val restaurantsMap = this.associateBy { it.id }
+                val restaurantsMap = this.associateBy { it.id }.toMutableMap()
                 selectedIds.forEach { id ->
-                    restaurantsMap[id]?.isFavorite = true
+                    val restaurant = restaurantsMap[id] ?: return@forEach
+                    restaurantsMap[id] = restaurant.copy(isFavorite = true)
                 }
                 return restaurantsMap.values.toList()
             }
