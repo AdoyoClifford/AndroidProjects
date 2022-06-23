@@ -16,7 +16,6 @@ abstract class RestaurantsDb: RoomDatabase() {
     abstract val dao: RestaurantsDao
 
     companion object {
-
         @Volatile
         private var INSTANCE: RestaurantsDao? = null
 
@@ -32,9 +31,7 @@ abstract class RestaurantsDb: RoomDatabase() {
             }
         }
 
-        private fun buildDataBase(context: Context):
-                RestaurantsDb =
-            Room.databaseBuilder(
+        private fun buildDataBase(context: Context): RestaurantsDb = Room.databaseBuilder(
                 context.applicationContext,
                 RestaurantsDb::class.java,"restaurants_db")
                 .fallbackToDestructiveMigration()
