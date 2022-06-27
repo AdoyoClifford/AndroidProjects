@@ -36,9 +36,7 @@ class RestaurantsViewModel(private val stateHandle: SavedStateHandle): ViewModel
     private suspend fun getAllRestaurants(): List<Restaurant> {
         return withContext(Dispatchers.IO) {
             try {
-                val restaurants = restInterface.getRestaurants()
-                restaurantsDao.addAll(restaurants)
-                return@withContext restaurants
+                refreshCache()
             } catch (e: Exception) {
                 when (e) {
                     is UnknownHostException,
@@ -49,9 +47,14 @@ class RestaurantsViewModel(private val stateHandle: SavedStateHandle): ViewModel
                     else -> throw e
                 }
             }
+            return@withContext restaurantsDao.getAll()
         }
     }
 
+    private suspend fun toggleFavouriteRestaurant(id: Int,oldValue: Boolean) =
+        withContext(Dispatchers.IO){
+        restaurantsDao.update(PartialUpdates(id = id, isFavourite = !oldValue)
+    )}
     fun toggleFavorite(id: Int){
         val restaurants = state.value.toMutableList()
         val itemIndex = restaurants.indexOfFirst { it.id == id }
@@ -59,6 +62,9 @@ class RestaurantsViewModel(private val stateHandle: SavedStateHandle): ViewModel
         restaurants[itemIndex] = item.copy(isFavorite = !item.isFavorite)
         storeSelection(restaurants[itemIndex])
         state.value = restaurants
+        viewModelScope.launch {
+            toggleFavouriteRestaurant(id,item.isFavorite)
+        }
     }
 
     private fun storeSelection(item: Restaurant) {
