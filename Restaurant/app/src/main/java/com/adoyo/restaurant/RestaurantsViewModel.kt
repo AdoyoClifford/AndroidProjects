@@ -42,7 +42,9 @@ class RestaurantsViewModel(private val stateHandle: SavedStateHandle): ViewModel
                     is UnknownHostException,
                     is ConnectException,
                     is HttpException -> {
-                        return@withContext restaurantsDao.getAll()
+                        if (restaurantsDao.getAll().isEmpty()){
+                            throw Exception("Something went wrong"+ "We have no data.")
+                        }
                     }
                     else -> throw e
                 }
@@ -51,19 +53,26 @@ class RestaurantsViewModel(private val stateHandle: SavedStateHandle): ViewModel
         }
     }
 
+    private suspend fun refreshCache(){
+        val remoteRestaurants = restInterface.getRestaurants()
+        restaurantsDao.addAll(remoteRestaurants)
+    }
+
     private suspend fun toggleFavouriteRestaurant(id: Int,oldValue: Boolean) =
         withContext(Dispatchers.IO){
-        restaurantsDao.update(PartialUpdates(id = id, isFavourite = !oldValue)
-    )}
+            restaurantsDao.update(PartialUpdates(id = id, isFavourite = !oldValue)
+            )
+        restaurantsDao.getAll()
+        }
     fun toggleFavorite(id: Int){
         val restaurants = state.value.toMutableList()
         val itemIndex = restaurants.indexOfFirst { it.id == id }
         val item = restaurants[itemIndex]
         restaurants[itemIndex] = item.copy(isFavorite = !item.isFavorite)
         storeSelection(restaurants[itemIndex])
-        state.value = restaurants
         viewModelScope.launch {
-            toggleFavouriteRestaurant(id,item.isFavorite)
+            val updateRestaurants = toggleFavouriteRestaurant(id,item.isFavorite)
+            state.value = updateRestaurants
         }
     }
 
