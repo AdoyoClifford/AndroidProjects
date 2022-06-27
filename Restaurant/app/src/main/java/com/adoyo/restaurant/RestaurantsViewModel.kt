@@ -55,12 +55,16 @@ class RestaurantsViewModel(private val stateHandle: SavedStateHandle): ViewModel
 
     private suspend fun refreshCache(){
         val remoteRestaurants = restInterface.getRestaurants()
+        val favouriteRestaurants = restaurantsDao.getAllFavorited()
         restaurantsDao.addAll(remoteRestaurants)
+        restaurantsDao.updateAll(favouriteRestaurants.map{
+            PartialRestaurants(it.id, true)
+        })
     }
 
     private suspend fun toggleFavouriteRestaurant(id: Int,oldValue: Boolean) =
         withContext(Dispatchers.IO){
-            restaurantsDao.update(PartialUpdates(id = id, isFavourite = !oldValue)
+            restaurantsDao.update(PartialRestaurants(id = id, isFavourite = !oldValue)
             )
         restaurantsDao.getAll()
         }

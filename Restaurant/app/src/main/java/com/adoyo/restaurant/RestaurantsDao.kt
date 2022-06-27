@@ -9,5 +9,10 @@ interface RestaurantsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addAll(restaurants: List<Restaurant>)
     @Update(entity = Restaurant::class)
-    suspend fun update(partialUpdate: PartialUpdates)
+    suspend fun update(partialUpdate: PartialRestaurants)
+    @Update(entity = Restaurant::class)
+    suspend fun updateAll(partialUpdate: List<PartialRestaurants>)
+    @Query("SELECT * FROM restaurant WHERE is_favourite = 1")
+    suspend fun getAllFavorited(): List<Restaurant>
+
 }
