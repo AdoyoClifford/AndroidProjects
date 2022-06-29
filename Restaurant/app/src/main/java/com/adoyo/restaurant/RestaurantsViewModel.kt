@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.net.ConnectException
 import java.net.UnknownHostException
 
-class RestaurantsViewModel(private val stateHandle: SavedStateHandle): ViewModel(){
+class RestaurantsViewModel(var stateHandle: SavedStateHandle): ViewModel(){
     private var restaurantsDao = RestaurantsDb.getDaoInstance(RestaurantsApplication.getAppContext())
     val state = mutableStateOf(emptyList<Restaurant>())
     private val restInterface: RestaurantApiService
@@ -53,21 +53,25 @@ class RestaurantsViewModel(private val stateHandle: SavedStateHandle): ViewModel
         }
     }
 
+    //Get restaurants from remote server and then cache them locally
     private suspend fun refreshCache(){
         val remoteRestaurants = restInterface.getRestaurants()
         val favouriteRestaurants = restaurantsDao.getAllFavorited()
         restaurantsDao.addAll(remoteRestaurants)
+        //partially update favorite field
         restaurantsDao.updateAll(favouriteRestaurants.map{
             PartialRestaurants(it.id, true)
         })
     }
-
+    //Make toggleFavorite restaurants return from our local database
     private suspend fun toggleFavouriteRestaurant(id: Int,oldValue: Boolean) =
         withContext(Dispatchers.IO){
             restaurantsDao.update(PartialRestaurants(id = id, isFavourite = !oldValue)
             )
         restaurantsDao.getAll()
         }
+
+    //passing restaurants from local database
     fun toggleFavorite(id: Int){
         val restaurants = state.value.toMutableList()
         val itemIndex = restaurants.indexOfFirst { it.id == id }
