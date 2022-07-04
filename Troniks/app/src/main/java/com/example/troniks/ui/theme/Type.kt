@@ -2,28 +2,15 @@ package com.example.troniks.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.example.troniks.R
 
 // Set of Material typography styles to start with
-val Inter = FontFamily(
-    Font(R.font.semi),
-    Font(R.font.regular)
-)
-
 val Typography = Typography(
-    h1 = TextStyle(
-        fontFamily = Inter,
-        fontWeight = FontWeight(700),
-        fontSize = 24.sp
-    ),
-
     body1 = TextStyle(
-        fontFamily = Inter,
-        fontWeight = FontWeight(400),
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
         fontSize = 16.sp
     )
     /* Other default text styles to override
