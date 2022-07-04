@@ -4,9 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 
 @Entity
-data class PartialRestaurants(
+data class PartialRestaurant(
     @ColumnInfo(name = "r_id")
     val id: Int,
-    @ColumnInfo(name = "is_favourite")
+    @ColumnInfo(name = "is_favorite")
     val isFavourite: Boolean = false
 )

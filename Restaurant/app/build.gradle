@@ -7,10 +7,6 @@ plugins {
 android {
     compileSdk 32
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.2.0"
-    }
-
     defaultConfig {
         applicationId "com.example.restaurant"
         minSdk 30
@@ -47,6 +43,10 @@ android {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.2.0"
     }
 }
 

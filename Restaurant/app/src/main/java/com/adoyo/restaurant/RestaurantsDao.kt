@@ -5,14 +5,18 @@ import androidx.room.*
 @Dao
 interface RestaurantsDao {
     @Query("SELECT * FROM restaurant")
-    suspend fun getAll(): List<Restaurant>
+     fun getAll(): List<Restaurant>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addAll(restaurants: List<Restaurant>)
+     fun addAll(restaurants: List<Restaurant>)
+
     @Update(entity = Restaurant::class)
-    suspend fun update(partialUpdate: PartialRestaurants)
+     fun update(partialRestaurant: PartialRestaurant)
+
     @Update(entity = Restaurant::class)
-    suspend fun updateAll(partialUpdate: List<PartialRestaurants>)
-    @Query("SELECT * FROM restaurant WHERE is_favourite = 1")
-    suspend fun getAllFavorited(): List<Restaurant>
+     fun updateAll(partialRestaurants: List<PartialRestaurant>)
+
+    @Query("SELECT * FROM restaurant WHERE is_favorite = 1")
+     fun getAllFavorited(): List<Restaurant>
 
 }
