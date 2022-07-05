@@ -13,10 +13,19 @@ import java.net.UnknownHostException
 
 class RestaurantsViewModel(): ViewModel(){
     private var restaurantsDao = RestaurantsDb.getDaoInstance(RestaurantsApplication.getAppContext())
-    val state = mutableStateOf(emptyList<Restaurant>())
+    val state = mutableStateOf(RestaurantsScreenState(
+        restaurant = listOf(),
+        isLoading = true
+    ))
+    //To adda retry button the error should be set to false so that when the button is
+    //pressed the UI wont remain in error state indefinitely
     private val restInterface: RestaurantApiService
     private val errorHandler = CoroutineExceptionHandler{ _, exception ->
         exception.printStackTrace()
+        state.value = state.value.copy(
+            error = exception.message,
+            isLoading = false
+        )
     }
 
     init {
@@ -30,7 +39,7 @@ class RestaurantsViewModel(): ViewModel(){
    private fun getRestaurants(){
        viewModelScope.launch (errorHandler){
                val restaurants = getAllRestaurants()
-                   state.value = getAllRestaurants()
+                   state.value = state.value.copy(restaurant = restaurants,isLoading = false)
        }
     }
     private suspend fun getAllRestaurants(): List<Restaurant> {
@@ -74,8 +83,8 @@ class RestaurantsViewModel(): ViewModel(){
     //passing restaurants from local database
     fun toggleFavorite(id: Int, oldValue: Boolean){
         viewModelScope.launch (errorHandler){
-            val updateRestaurants = toggleFavouriteRestaurant(id,oldValue)
-            state.value = updateRestaurants
+            val updateRestaurants = toggleFavouriteRestaurant(id, oldValue)
+            state.value = state.value.copy(restaurant = updateRestaurants)
         }
     }
 }
