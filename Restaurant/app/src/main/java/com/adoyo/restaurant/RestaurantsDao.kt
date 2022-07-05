@@ -5,7 +5,7 @@ import androidx.room.*
 @Dao
 interface RestaurantsDao {
     @Query("SELECT * FROM restaurant")
-     fun getAll(): List<Restaurant>
+    fun getAll(): List<Restaurant>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
      fun addAll(restaurants: List<Restaurant>)
