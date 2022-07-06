@@ -43,7 +43,6 @@ class RestaurantsRepository {
                 }
             }
             return@withContext restaurantsDao.getAll()
-                .sortedBy { it.title }
         }
     }
 

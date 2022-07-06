@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
 
 class RestaurantsViewModel(): ViewModel(){
+    private val getRestaurantUseCase = GetRestaurantUseCase()
     private val repository = RestaurantsRepository()
     private val _state = mutableStateOf(RestaurantsScreenState(
         restaurant = listOf(),
@@ -32,7 +33,7 @@ class RestaurantsViewModel(): ViewModel(){
     }
    private fun getRestaurants(){
        viewModelScope.launch (errorHandler){
-               val restaurants = repository.getAllRestaurants()
+               val restaurants = getRestaurantUseCase()
                    _state.value = _state.value.copy(restaurant = restaurants,isLoading = false)
        }
     }
