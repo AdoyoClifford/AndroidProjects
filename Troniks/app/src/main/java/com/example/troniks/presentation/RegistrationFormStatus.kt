@@ -1,4 +1,4 @@
-package com.example.troniks
+package com.example.troniks.presentation
 
 data class RegistrationFormStatus(
     val email:String = "",

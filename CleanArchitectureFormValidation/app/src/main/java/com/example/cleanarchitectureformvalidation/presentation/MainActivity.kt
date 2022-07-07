@@ -54,7 +54,7 @@ class MainActivity : ComponentActivity() {
                        .padding(32.dp),
                    verticalArrangement = Arrangement.Center
                    ) {
-                       TextField(value = state.email, onValueChange = {
+                       OutlinedTextField(value = state.email, onValueChange = {
                            viewModel.onEvent(RegistrationFormEvent.EmailChanged(it))
                        },
                        isError = state.emailError != null,
@@ -72,7 +72,7 @@ class MainActivity : ComponentActivity() {
                        }
                        Spacer(modifier = Modifier.height(16.dp))
 
-                       TextField(value = state.password, onValueChange = {
+                       OutlinedTextField(value = state.password, onValueChange = {
                            viewModel.onEvent(RegistrationFormEvent.PasswordChanged(it))
                        },
                            isError = state.passwordError != null,
@@ -92,7 +92,7 @@ class MainActivity : ComponentActivity() {
 
                        Spacer(modifier = Modifier.height(16.dp))
 
-                       TextField(value = state.repeatedPassword, onValueChange = {
+                       OutlinedTextField(value = state.repeatedPassword, onValueChange = {
                            viewModel.onEvent(RegistrationFormEvent.RepeatedPasswordChanged(it))
                        },
                            isError = state.repeatedPassword != null,

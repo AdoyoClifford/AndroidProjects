@@ -1,9 +1,6 @@
-package com.example.troniks.domain.use_cases
+package com.example.troniks.domain.use_case
 
 import android.util.Patterns
-import java.util.regex.Pattern
-
-private const val EMAIL_VALIDATION_REGEX = "^(.+)@(.+)\$"
 
 class ValidateEmail {
     fun execute(email: String): ValidationResult {
@@ -13,10 +10,10 @@ class ValidateEmail {
                 errorMessage = "Email cannot be empty"
             )
         }
-        if (Pattern.matches(EMAIL_VALIDATION_REGEX,email)) {
+        if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             return ValidationResult(
-                successful = true,
-                errorMessage = "Email is not Valid"
+                successful = false,
+                errorMessage = "Email is not valid"
             )
         }
         return ValidationResult(

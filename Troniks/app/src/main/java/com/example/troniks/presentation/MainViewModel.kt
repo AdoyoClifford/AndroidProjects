@@ -1,14 +1,14 @@
-package com.example.troniks
+package com.example.troniks.presentation
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.troniks.domain.use_cases.ValidateEmail
-import com.example.troniks.domain.use_cases.ValidatePassword
-import com.example.troniks.domain.use_cases.ValidateRepeatedPassword
-import com.example.troniks.domain.use_cases.ValidateTerms
+import com.example.troniks.domain.use_case.ValidateEmail
+import com.example.troniks.domain.use_case.ValidatePassword
+import com.example.troniks.domain.use_case.ValidateRepeatedPassword
+import com.example.troniks.domain.use_case.ValidateTerms
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -20,24 +20,24 @@ class MainViewModel(
     private val validateTerms: ValidateTerms = ValidateTerms()
 ): ViewModel() {
     var state by mutableStateOf(RegistrationFormStatus())
-    private val validateEventsChannel = Channel<ValidationEvent> ()
-    val validationEvents = validateEventsChannel.receiveAsFlow()
+    private val validationEventsChannel = Channel<ValidationEvent>()
+    val validationEvents = validationEventsChannel.receiveAsFlow()
 
-    fun onEvent(event: RegistrationFormEvents) {
-        when(event) {
-            is RegistrationFormEvents.EmailChanged -> {
+    fun onEvent(event: RegistrationFormEvent) {
+        when (event) {
+            is RegistrationFormEvent.EmailChanged -> {
                 state = state.copy(email = event.email)
             }
-            is RegistrationFormEvents.PasswordChanged -> {
+            is RegistrationFormEvent.PasswordChanged -> {
                 state = state.copy(password = event.password)
             }
-            is RegistrationFormEvents.RepeatedPasswordChanged -> {
+            is RegistrationFormEvent.RepeatedPasswordChanged -> {
                 state = state.copy(repeatedPassword = event.repeatedPassword)
             }
-            is RegistrationFormEvents.AcceptedTerms -> {
+            is RegistrationFormEvent.AcceptTerms -> {
                 state = state.copy(acceptedTerms = event.isAccepted)
             }
-            is RegistrationFormEvents.Submit -> {
+            is RegistrationFormEvent.Submit -> {
                 submitData()
             }
         }
@@ -46,31 +46,34 @@ class MainViewModel(
     private fun submitData() {
         val emailResult = validateEmail.execute(state.email)
         val passwordResult = validatePassword.execute(state.password)
-        val repeatedPassword = validateRepeatedPassword.execute(state.password,state.repeatedPassword)
-        val termResult = validateTerms.execute(state.acceptedTerms)
+        val repeatedPassword = validateRepeatedPassword.execute(state.password,
+            state.repeatedPassword)
+        val termsResult = validateTerms.execute(state.acceptedTerms)
 
         val hasError = listOf(
             emailResult,
             passwordResult,
-            repeatedPassword,termResult
-        ).any { it.successful }
+            repeatedPassword,
+            termsResult
+        ).any { !it.successful }
 
         if (hasError) {
             state = state.copy(
                 emailError = emailResult.errorMessage,
                 passwordError = passwordResult.errorMessage,
                 repeatedPasswordError = repeatedPassword.errorMessage,
-                termsError = termResult.errorMessage
+                termsError = termsResult.errorMessage
             )
+
         }
         viewModelScope.launch {
-            validateEventsChannel.send(ValidationEvent.Success)
+            validationEventsChannel.send(ValidationEvent.Success)
         }
 
     }
 
     sealed class ValidationEvent {
-        object Success: ValidationEvent()
+        object Success : ValidationEvent()
     }
 
 }

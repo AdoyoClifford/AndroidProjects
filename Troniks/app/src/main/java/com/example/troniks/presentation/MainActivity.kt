@@ -1,4 +1,4 @@
-package com.example.troniks
+package com.example.troniks.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background) {
-                    MainScreen()
+                    SignIn()
                 }
             }
         }
