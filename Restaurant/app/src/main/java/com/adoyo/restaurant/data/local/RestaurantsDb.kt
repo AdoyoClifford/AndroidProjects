@@ -1,4 +1,4 @@
-package com.adoyo.restaurant
+package com.adoyo.restaurant.data.local
 
 import android.content.Context
 import androidx.room.Database
@@ -8,8 +8,8 @@ import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.internal.synchronized
 
 @Database(
-    entities = [Restaurant::class],
-    version = 1,
+    entities = [LocalRestaurant::class],
+    version = 3,
     exportSchema = false
 )
 abstract class RestaurantsDb: RoomDatabase() {
@@ -20,7 +20,7 @@ abstract class RestaurantsDb: RoomDatabase() {
         private var INSTANCE: RestaurantsDao? = null
 
         @OptIn(InternalCoroutinesApi::class)
-        fun getDaoInstance(context: Context): RestaurantsDao{
+        fun getDaoInstance(context: Context): RestaurantsDao {
             synchronized(this) {
                 var instance = INSTANCE
                 if (instance == null) {

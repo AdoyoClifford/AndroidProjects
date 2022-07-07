@@ -1,10 +1,10 @@
-package com.adoyo.restaurant
+package com.adoyo.restaurant.data.local
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 
 @Entity
-data class PartialRestaurant(
+data class PartialLocalRestaurant(
     @ColumnInfo(name = "r_id")
     val id: Int,
     @ColumnInfo(name = "is_favorite")

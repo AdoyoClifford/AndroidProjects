@@ -17,7 +17,7 @@
         android:theme="@style/Theme.Restaurant"
         tools:targetApi="31">
         <activity
-            android:name="com.adoyo.restaurant.MainActivity"
+            android:name="com.adoyo.restaurant.presentation.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Restaurant">

@@ -1,4 +1,6 @@
-package com.adoyo.restaurant
+package com.adoyo.restaurant.presentation.lists
+
+import com.adoyo.restaurant.domain.Restaurant
 
 data class RestaurantsScreenState(
     val restaurant: List<Restaurant>,

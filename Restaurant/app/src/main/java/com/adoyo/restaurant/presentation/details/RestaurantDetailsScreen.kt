@@ -1,4 +1,4 @@
-package com.adoyo.restaurant
+package com.adoyo.restaurant.presentation.details
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,8 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.adoyo.restaurant.ui.theme.RestaurantDetails
-import com.adoyo.restaurant.ui.theme.RestaurantIcon
+import com.adoyo.restaurant.presentation.lists.RestaurantDetails
+import com.adoyo.restaurant.presentation.lists.RestaurantIcon
 
 @Composable
 fun RestaurantDetailsScreen() {

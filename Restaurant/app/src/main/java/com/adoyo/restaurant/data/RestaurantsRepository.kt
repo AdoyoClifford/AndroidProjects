@@ -1,5 +1,11 @@
-package com.adoyo.restaurant
+package com.adoyo.restaurant.data
 
+import com.adoyo.restaurant.RestaurantsApplication
+import com.adoyo.restaurant.data.local.LocalRestaurant
+import com.adoyo.restaurant.data.local.PartialLocalRestaurant
+import com.adoyo.restaurant.data.local.RestaurantsDb
+import com.adoyo.restaurant.data.remote.RestaurantApiService
+import com.adoyo.restaurant.domain.Restaurant
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -18,14 +24,19 @@ class RestaurantsRepository {
     private var restaurantsDao = RestaurantsDb.getDaoInstance(RestaurantsApplication.getAppContext())
 
     //Make toggleFavorite restaurants return from our local database
-     suspend fun toggleFavouriteRestaurant(id: Int,oldValue: Boolean) =
+     suspend fun toggleFavouriteRestaurant(id: Int, value: Boolean) =
         withContext(Dispatchers.IO){
-            restaurantsDao.update(PartialRestaurant(id = id, isFavourite = !oldValue)
+            restaurantsDao.update(PartialLocalRestaurant(id = id, isFavourite = value)
             )
-            restaurantsDao.getAll()
         }
+    suspend fun getRestaurants(): List<Restaurant> {
+        return withContext(Dispatchers.IO) {
+            return@withContext restaurantsDao.getAll()
+                .map { Restaurant(it.id,it.title,it.description,it.isFavorite) }
+        }
+    }
 
-     suspend fun getAllRestaurants(): List<Restaurant> {
+     suspend fun loadRestaurants(){
         return withContext(Dispatchers.IO) {
             try {
                 refreshCache()
@@ -42,7 +53,6 @@ class RestaurantsRepository {
                     else -> throw e
                 }
             }
-            return@withContext restaurantsDao.getAll()
         }
     }
 
@@ -50,10 +60,12 @@ class RestaurantsRepository {
     private suspend fun refreshCache(){
         val remoteRestaurants = restInterface.getRestaurants()
         val favouriteRestaurants = restaurantsDao.getAllFavorited()
-        restaurantsDao.addAll(remoteRestaurants)
+        restaurantsDao.addAll(remoteRestaurants.map{
+            LocalRestaurant(it.id,it.title,it.description,false)
+        })
         //partially update favorite field
         restaurantsDao.updateAll(favouriteRestaurants.map{
-            PartialRestaurant(it.id, true)
+            PartialLocalRestaurant(it.id, true)
         })
     }
 

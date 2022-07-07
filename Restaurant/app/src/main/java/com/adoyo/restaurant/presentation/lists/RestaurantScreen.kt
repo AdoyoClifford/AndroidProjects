@@ -1,4 +1,4 @@
-package com.adoyo.restaurant.ui.theme
+package com.adoyo.restaurant.presentation.lists
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -12,20 +12,22 @@ import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.adoyo.restaurant.Restaurant
-import com.adoyo.restaurant.RestaurantsViewModel
+import com.adoyo.restaurant.domain.Restaurant
 
 @Composable
-fun RestaurantScreen(onItemClick: (id: Int) -> Unit) {
-    val viewModel: RestaurantsViewModel = viewModel()
-    val state = viewModel.state.value
-//    val isLoading = restaurants.isEmpty()
+fun RestaurantScreen(
+    state: RestaurantsScreenState,
+    onItemClick: (id: Int) -> Unit,
+    onFavoriteClick: (id: Int, oldValue: Boolean) -> Unit
+) {
+//    val viewModel: RestaurantsViewModel = viewModel()
+//    val state = viewModel.state.value
 
 
     Box(
@@ -40,7 +42,7 @@ fun RestaurantScreen(onItemClick: (id: Int) -> Unit) {
         ) {
             items(state.restaurant) { restaurant ->
                 RestaurantItem(restaurant,
-                    onFavoriteClick = { id, oldValue -> viewModel.toggleFavorite(id, oldValue) },
+                    onFavoriteClick = { id, oldValue -> onFavoriteClick(id, oldValue) },
                     onItemClick = { id -> onItemClick(id) })
             }
         }
