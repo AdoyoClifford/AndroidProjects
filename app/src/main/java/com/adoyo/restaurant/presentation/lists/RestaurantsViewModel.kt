@@ -48,6 +48,7 @@ class RestaurantsViewModel(): ViewModel(){
         viewModelScope.launch (errorHandler){
             val updateRestaurants = toggleRestaurantUseCase(id, oldValue)
             _state.value = _state.value.copy(restaurant = updateRestaurants)
+            println("Hello")
         }
     }
 }
